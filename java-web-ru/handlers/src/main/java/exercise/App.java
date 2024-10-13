@@ -2,6 +2,8 @@ package exercise;
 
 import io.javalin.Javalin;
 
+import java.util.List;
+
 public final class App {
 
     public static Javalin getApp() {
@@ -10,8 +12,11 @@ public final class App {
         Javalin app = Javalin.create(config -> {
             config.bundledPlugins.enableDevLogging();
         });
-        app.get("/phones", ctx -> ctx.json(Data.getPhones()));
-        app.get("/phones", ctx -> ctx.json(Data.getDomains()));
+        List<String> phones = Data.getPhones();
+        List<String> domains = Data.getDomains();
+
+        app.get("/phones", ctx -> ctx.json(phones));
+        app.get("/phones", ctx -> ctx.json(domains));
 
         return app;
         // END
