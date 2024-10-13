@@ -18,7 +18,7 @@ public class Data {
             phones.add(faker.phoneNumber().cellPhone());
         }
 
-        return phones;
+        return (Type) phones;
     }
 
     public static Type getDomains() {
@@ -28,6 +28,6 @@ public class Data {
             domains.add(faker.internet().domainName());
         }
 
-        return domains;
+        return (Type) domains;
     }
 }
