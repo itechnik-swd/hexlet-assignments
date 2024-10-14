@@ -16,7 +16,7 @@ public final class App {
         List<String> domains = Data.getDomains();
 
         app.get("/phones", ctx -> ctx.json(phones));
-        app.get("/phones", ctx -> ctx.json(domains));
+        app.get("/domains", ctx -> ctx.json(domains));
 
         return app;
         // END
