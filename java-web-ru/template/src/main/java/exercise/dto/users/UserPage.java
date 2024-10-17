@@ -9,6 +9,6 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public class UserPage {
-    private User course;
+    private User user;
 }
 // END

@@ -9,12 +9,20 @@
           rel="stylesheet"
           integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We"
           crossorigin="anonymous">
-    <title>Hello Hexlet!</title>
+    <title>List of Users!</title>
 </head>
 <body>
 <div class="mx-auto p-4 py-md-5">
     <main>
-        <a href="/users">Пользователи</a>
+        @for(var user : page.getUsers())
+            <table>
+                <tr>
+                    <td>${user.getFirstName()}</td>
+                    <td>${user.getLastName()}</td>
+                    <td><a href="/users">${user.getEmail()}</a></td>
+                </tr>
+            </table>
+        @endfor
     </main>
 </div>
 </body>
