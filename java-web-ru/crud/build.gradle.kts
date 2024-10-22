@@ -21,19 +21,19 @@ repositories {
 }
 
 dependencies {
-    implementation("io.javalin:javalin:6.2.0")
-    implementation("io.javalin:javalin-bundle:6.2.0")
-    implementation("io.javalin:javalin-rendering:6.1.6")
+    implementation("io.javalin:javalin:6.1.3")
+    implementation("io.javalin:javalin-bundle:6.1.3")
+    implementation("io.javalin:javalin-rendering:6.1.3")
 
-    implementation("gg.jte:jte:3.1.12")
-    implementation("org.slf4j:slf4j-simple:2.0.13")
-    implementation("net.datafaker:datafaker:2.3.0")
-    implementation("com.fasterxml.jackson.core:jackson-databind:2.17.0")
-    testImplementation(platform("org.junit:junit-bom:5.10.3"))
+    implementation("gg.jte:jte:3.1.9")
+    implementation("org.slf4j:slf4j-simple:2.0.7")
+    implementation("net.datafaker:datafaker:2.0.1")
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.15.0")
+    testImplementation(platform("org.junit:junit-bom:5.9.1"))
     testImplementation("org.junit.jupiter:junit-jupiter")
     testImplementation("com.konghq:unirest-java:3.13.0")
     testImplementation("org.hamcrest:hamcrest-core:2.2")
-    testImplementation("org.assertj:assertj-core:3.26.3")
+    testImplementation("org.assertj:assertj-core:3.24.2")
 }
 
 tasks.test {

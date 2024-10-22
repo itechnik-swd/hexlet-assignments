@@ -6,10 +6,14 @@
 content = @`
     <div class="mx-auto p-4 py-md-5">
         <main>
-            <h1>Список постов</h1>
+            <h1>Все посты</h1>
+
             <table class="table table-striped">
                 @for(var post : page.getPosts())
                     <tr>
+                        <td>
+                            ${post.getId()}
+                        </td>
                         <td>
                             <a href="${NamedRoutes.postPath(post.getId())}">${post.getName()}</a>
                         </td>
@@ -19,17 +23,22 @@ content = @`
                     </tr>
                 @endfor
             </table>
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    <li class="page-item">
+                        <a class="page-link" href="?page=${page.getPage() < 2 ? 1 : page.getPage() - 1}" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li class="page-item"><a class="page-link" href="${NamedRoutes.postsPath()}?page=${page.getPage()}">${page.getPage()}</a></li>
+                    <li class="page-item">
+                        <a class="page-link" href="?page=${page.getPage() + 1}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
         </main>
     </div>
-    <span>
-        @if(page.getCurrentPageNumber() > 1)
-            <a href="${NamedRoutes.postsPath()}?page=${page.getCurrentPageNumber() - 1}">Previous page</a>
-        @endif
-    </span>
-    <span>
-        @if(page.getCurrentPageNumber() < 7)
-            <a href="${NamedRoutes.postsPath()}?page=${page.getCurrentPageNumber() + 1}">Next page</a>
-        @endif
-    </span>
 `
 )

@@ -6,12 +6,13 @@ import exercise.model.Post;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+
 // BEGIN
 @AllArgsConstructor
 @Getter
 public class PostsPage {
     private List<Post> posts;
-    private int currentPageNumber;
+    private int page;
 }
 // END
 

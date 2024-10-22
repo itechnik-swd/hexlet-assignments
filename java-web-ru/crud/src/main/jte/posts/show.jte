@@ -1,16 +1,16 @@
 @import exercise.dto.posts.PostPage
-@import exercise.util.NamedRoutes
 @param PostPage page
 
 @template.layout.page(
 content = @`
-    <div>
-        <p>${page.getPost().getId()}</p>
-        <p>${page.getPost().getName()}</p>
-        <p>${page.getPost().getBody()}</p>
-    </div>
-    <div>
-        <a href="${NamedRoutes.postsPath()}">Вернуться в список всех постов</a>
-    </div>
+    <main>
+        <div class="mx-auto p-4 py-md-5">
+            <h1>${page.getPost().getName()}</h1>
+        </div>
+
+        <div class="mx-auto p-4 py-md-5">
+            ${page.getPost().getBody()}
+        </div>
+    </main>
 `
 )
