@@ -61,16 +61,17 @@ public class PostsController {
     public static void edit(Context ctx) {
         var id = ctx.pathParamAsClass("id", Long.class).get();
         var post = PostRepository.find(id)
-                .orElseThrow(() -> new NotFoundResponse("Entity with id = " + id + " not found"));
-        var page = new PostPage(post);
+                .orElseThrow(() -> new NotFoundResponse("Post not found"));
+
+        var page = new EditPostPage(id, post.getName(), post.getBody(), null);
         ctx.render("posts/edit.jte", model("page", page));
     }
 
-
     public static void update(Context ctx) {
-        try {
-            var id = ctx.pathParamAsClass("id", Long.class).get();
 
+        var id = ctx.pathParamAsClass("id", Long.class).get();
+
+        try {
             var name = ctx.formParamAsClass("name", String.class)
                     .check(value -> value.length() >= 2, "Название не должно быть короче двух символов")
                     .get();
@@ -80,17 +81,19 @@ public class PostsController {
                     .get();
 
             var post = PostRepository.find(id)
-                    .orElseThrow(() -> new NotFoundResponse("Entity with id = " + id + " not found"));
+                    .orElseThrow(() -> new NotFoundResponse("Post not found"));
+
             post.setName(name);
             post.setBody(body);
+
             PostRepository.save(post);
             ctx.redirect(NamedRoutes.postsPath());
 
         } catch (ValidationException e) {
             var name = ctx.formParam("name");
             var body = ctx.formParam("body");
-            var page = new BuildPostPage(name, body, e.getErrors());
-            ctx.render("posts/build.jte", model("page", page)).status(422);
+            var page = new EditPostPage(id, name, body, e.getErrors());
+            ctx.render("posts/edit.jte", model("page", page)).status(422);
         }
     }
     // END
