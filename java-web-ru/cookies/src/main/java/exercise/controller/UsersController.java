@@ -23,26 +23,29 @@ public class UsersController {
         var lastName = ctx.formParam("lastName");
         var email = ctx.formParam("email");
         var password = ctx.formParam("password");
+        var encryptedPassword = Security.encrypt(password);
         var token = Security.generateToken();
 
-        var user = new User(firstName, lastName, email, password, token);
-        UserRepository.save(user); // Пользователь должен сохраняться в репозитории.
-        ctx.redirect(NamedRoutes.userPath(user.getId())); // TODO redirect to /user{id}
-        ctx.cookie("visited", token);
+        var user = new User(firstName, lastName, email, encryptedPassword, token);
+        UserRepository.save(user);
+
+        ctx.cookie("token", token);
+        ctx.redirect(NamedRoutes.userPath(user.getId()));
     }
 
     public static void show(Context ctx) {
         var id = ctx.pathParamAsClass("id", Long.class).get();
+        var token = ctx.cookie("token") == null ? null : ctx.cookie("token");
         var user = UserRepository.find(id)
                 .orElseThrow(() -> new NotFoundResponse("Entity with id = " + id + " not found"));
-        var visited = ctx.cookie("visited");
-        if (visited != null && visited.equals(user.getToken())) {
-            var page = new UserPage(user);
-            ctx.render("users/show.jte", model("page", page));
-        } else {
+
+        if (user == null || !user.getToken().equals(token)) {
             ctx.redirect(NamedRoutes.buildUserPath());
+            return;
         }
 
+        var page = new UserPage(user);
+        ctx.render("users/show.jte", model("page", page));
     }
     // END
 }
