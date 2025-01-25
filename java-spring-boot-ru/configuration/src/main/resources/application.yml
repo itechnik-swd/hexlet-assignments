@@ -1,9 +1,17 @@
 ---
 # BEGIN
+# цветной вывод логов
+spring:
+  output:
+    ansi:
+      enabled: always
+
+# уровни логирования для пакетов
 logging:
   level:
     root: WARN
 
+# настройки сервера, чтобы приложение запускалось на порту 7070
 server:
   port : 7070
 # END
@@ -13,4 +21,3 @@ users:
     - gjoinsey1@blogger.com
     - scrosi4@cam.ac.uk
     - brundle@cam.ac.uk
-
